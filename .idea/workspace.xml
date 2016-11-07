@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed2f7ed3-3c2d-45e7-bb4b-45fcbf1297d1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Video.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_11_07_152800_create_videos_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ui/src/components/App/Upload.js" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/ui/src/components/App/Dashboard.css" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Collection.php" afterPath="$PROJECT_DIR$/app/Collection.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UploadController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UploadController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
@@ -492,12 +497,12 @@
       <workItem from="1478507140161" duration="1483000" />
       <workItem from="1478508914678" duration="2724000" />
       <workItem from="1478513623103" duration="26000" />
-      <workItem from="1478513912951" duration="10061000" />
+      <workItem from="1478513912951" duration="10086000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44436000" />
+    <option name="totallyTimeSpent" value="44461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1839" y="97" width="1748" height="861" extended-state="0" />
