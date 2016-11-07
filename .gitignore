@@ -1,6 +1,7 @@
 /vendor
 ui/node_modules
 /public/storage
+/public/uploads
 Homestead.yaml
 Homestead.json
 .env

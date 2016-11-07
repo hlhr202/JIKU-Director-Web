@@ -8,7 +8,7 @@ class Collection extends Model
 {
     //
     protected $table='collections';
-    protected $fillable=['creator','name'];
+    protected $fillable=['creator_id','name'];
 
     public function creator(){
         return $this->belongsTo('App\User');

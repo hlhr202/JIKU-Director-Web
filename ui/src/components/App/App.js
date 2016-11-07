@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Container, Segment} from 'semantic-ui-react'
 
 import './App.css'
 
@@ -12,7 +13,7 @@ export class App extends Component {
 
 			<div>
 				<Nav/>
-				<div className='main-content'>
+				<div>
 					{ this.props.children }
 				</div>
      
@@ -23,6 +24,13 @@ export class App extends Component {
 
 export class Home extends Component{
 	render(){
-		return <h3>Home</h3>
+		return(
+			<Segment className='index-content'>
+			<Container>
+				<h1>Welcome to JIKU Director</h1>
+			</Container>
+			</Segment>
+		) 
+		
 	}
 }

@@ -4,7 +4,8 @@ import { render } from 'react-dom'
 // First we import some modules...
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { App, Home } from './components/App/App'
-import { Dashboard, Upload, Guide }from './components/App/Dashboard'
+import { Dashboard, Guide }from './components/App/Dashboard'
+import { Upload } from './components/App/Upload'
 import '../semantic/dist/semantic.min.css'
 
 
