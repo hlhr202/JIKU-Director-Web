@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { Progress, Card, Button, Dropdown, Input, Menu, Container, Grid, Image, Header, Icon, Divider, Segment } from 'semantic-ui-react'
 import Nav from './Nav'
+import $ from 'jquery'
+import update from 'react-addons-update'
 
 import DataCollection from '../Collection/DataCollection'
 
@@ -9,6 +11,17 @@ import './App.css'
 import './Dashboard.css'
 export class Upload extends Component{
 	componentDidMount(){
+		this.pullCollectionList()
+		
+	}
+	state={
+		files:{},
+		collections:[],
+		selected:{},
+		progress:{},
+	}
+
+	pullCollectionList = () =>{
 		DataCollection.getCollections().then((response)=>{
 			let collections = []
 			response.map((collection)=>{
@@ -16,22 +29,13 @@ export class Upload extends Component{
 			})
 
 			this.setState({collections:collections})
-			this.refs.collection.setValue(this.state.collections[0].value)
+			if (this.state.collections[0])	this.refs.collection.setValue(this.state.collections[this.state.collections.length-1].value)
 			this.setState({selected:this.refs.collection.state})
 		})
 
 		this.refs.collection.handleClose=this.selectionClose
-		
-	}
-	state={
-		files:{},
-		collections:[],
-		selected:{},
 	}
 	
-	handleFileDrop = (files, event) => {
-		console.log(files)
-	}
 
 	handleFiles = () => {
 		let fileListObj = this.refs.inputFile.files
@@ -39,46 +43,81 @@ export class Upload extends Component{
 		if (!fileListObj.length || fileListObj.length===0) return
 
 		this.setState({files:fileListObj})
+		let progress = {}
 
-		console.log(fileListObj)
+		for (let i=0;i<fileListObj.length;i++){
+			progress[i] = 0
+		}
+		this.setState({progress:progress})
 	}
 
 	openUploadDialog = () => {
 		this.refs.inputFile.click()
 	}
 
-	getFilePath = (file)=>{
-		return URL.createObjectURL(file)
-	}
+	
 
 	selectionClose = (event) => {
-		console.log(this.refs.collection)
-		console.log(this.refs.collection.state)
 		this.setState({selected:this.refs.collection.state})
+	}
+
+	createCollection = () => {
+		let name = this.refs.collection.state.searchQuery
+		DataCollection.pushCollections(name).then((response)=>{
+			this.pullCollectionList()
+		})
+	}
+
+	updateProgress = (count)=>{
+		console.log(count)
+		return (event)=>{
+			let percent = (event.loaded / event.total)*100
+			
+			const progress = this.state.progress
+			progress[count] = percent
+			this.setState({progress:progress})
+		}
+	}
+
+	upload = () => {
+		for (let i=0;i<this.state.files.length;i++){
+			let formData = new FormData()
+			formData.append('video'+i,this.state.files[i])
+
+			console.log(formData)
+
+			let xhr = new XMLHttpRequest();
+			
+			
+			xhr.open('POST','http://localhost:8000/api/upload?token=' + localStorage.getItem('token'),true)
+			xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+			xhr.setRequestHeader('Access-Control-Aloow-Headers','*')
+			xhr.upload.onprogress = this.updateProgress(i)
+			xhr.send(formData)
+		}
+		
 	}
 
 	render(){
 		
-		const {files, collections, selected} = this.state
-		console.log(collections)
+		const {files, collections, selected, progress} = this.state
 
 		
-		var dummy = []
+		var videoCards = []
 		for (var i=0; i < files.length; i++) {
 			if (files[i].type!=='video/mp4'){
 				alert("Input File Type Not Acceptable")
 				break
 			}
-			dummy.push(
+			videoCards.push(
 					<Card key={i}>
 						<Card.Content>
-							<video controls type='video/mp4' style={{maxWidth:'100%'}} src={this.getFilePath(this.state.files[i])}></video>
 							<Card.Description>
 							{this.state.files[i].name}
 							</Card.Description>
 						</Card.Content>
 						<Card.Content extra>
-							<Progress percent={10} size='tiny'></Progress>
+							<Progress percent={progress[i]} size='tiny'></Progress>
 						</Card.Content>
 					</Card>
 			)
@@ -86,12 +125,13 @@ export class Upload extends Component{
 		return (
 			<Grid>
 				<Grid.Row columns={2}>
-					<input hidden='true' accept="video/mp4" name='file' ref='inputFile' type='file' multiple onFocus={ this.handleFiles } />
-					
+					<form id='upload' encType='multipart/form-data'>
+						<input hidden='true' accept="video/mp4" name='file' ref='inputFile' type='file' multiple onChange={ this.handleFiles } />
+					</form>
 					<Grid.Column>
 						<Input action>
 							<Dropdown placeholder='Collection Name' ref='collection' search selection options={collections} />
-							<Button disabled={Number.isInteger(selected.selectedIndex)?true:false} primary>Create</Button>
+							<Button disabled={Number.isInteger(selected.selectedIndex)?true:false} onClick={this.createCollection} primary>Create</Button>
 						</Input>
 					</Grid.Column>
 
@@ -102,15 +142,35 @@ export class Upload extends Component{
 				</Grid.Row>
 				<Grid.Row columns={1}>
 					<Grid.Column>
-						<Segment className='file-zone'>
-								<Card.Group itemsPerRow={2} style={{'overflow':'auto', 'maxHeight':'600px', 'minHeight':'600px', 'padding':'14px'}}>
-									{dummy}
+						<Segment className='file-zone' style={{'minHeight':'500px'}}>
+								<Card.Group itemsPerRow={2} style={{'overflow':'auto', 'maxHeight':'500px', 'padding':'14px'}}>
+									{videoCards}
 								</Card.Group>
 							
 						</Segment>
+						<Button primary onClick={this.upload}>Upload</Button>
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
+		)
+	}
+}
+
+export class Video extends Component{
+	getFilePath = (file)=>{
+		return URL.createObjectURL(file)
+	}
+
+	shoudComponentUpdate(nextProps, nextState) {
+		if (this.props.file.name !== nextProps.file.name){
+			return true
+		}
+		return false
+	}
+
+	render(){
+		return (
+			<video controls type='video/mp4' style={{maxWidth:'100%'}} src={this.getFilePath(this.props.file)}></video>
 		)
 	}
 }

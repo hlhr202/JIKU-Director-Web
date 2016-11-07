@@ -14,8 +14,7 @@ class CreateCollectionsTable extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('creator')->unsigned();
-            $table->foreign('creator')->references('id')->on('users');
+            $table->integer('creator_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });

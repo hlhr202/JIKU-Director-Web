@@ -33,4 +33,9 @@ Route::group(['middleware'=>'cors','prefix' => 'api'], function()
 
 Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
     Route::get('collections/getall','CollectionController@getCollections');
+    Route::post('collections/create', 'CollectionController@createCollection');
+});
+
+Route::group(['middleware'=>['cors'],'prefix'=>'api'], function(){
+    Route::post('upload', 'UploadController@post');
 });

@@ -22,22 +22,26 @@ let getCollections = () => {
 	})
 }
 
-let pushCollections = () => {
+let pushCollections = (name) => {
 	return new Promise((resolve, reject)=>{
 		if (localStorage.getItem('token') === 'null' || !localStorage.getItem('token')) {
 			return reject(false)
 		} else {
-			let get = $.ajax({
+			let data = {
+				name:name
+			}
+			let post = $.ajax({
 				type: 'POST',
-				url: 'http://localhost:8000/api/collections?token=' + localStorage.getItem('token'),
+				data: JSON.stringify(data),
+				url: 'http://localhost:8000/api/collections/create?token=' + localStorage.getItem('token'),
 				crossDomain: true
 			})
 
-			get.done((response) => {
+			post.done((response) => {
 				resolve(response)
 			})
 
-			get.fail((jqXHR, textStatus) => {
+			post.fail((jqXHR, textStatus) => {
 				return reject(textStatus)
 			})
 		}
@@ -45,5 +49,6 @@ let pushCollections = () => {
 }
 
 export default{
-	getCollections
+	getCollections,
+	pushCollections
 }
