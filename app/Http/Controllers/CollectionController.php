@@ -26,8 +26,7 @@ class CollectionController extends Controller
         $userInfo = $request->attributes->get('user');
         $payload = json_decode($request->getContent(), true);
 
-        error_log(json_encode($payload));
-        $collections = Collection::create(['name'=>$payload['name']]);
+        $collections = Collection::create(['name'=>$payload['name'],'status'=>'ready']);
 
         $user = User::where('id',$userInfo['user']['id'])->first();
 

@@ -18,6 +18,9 @@ export class Dashboard extends Component {
 		if (this.props.location.pathname.split('/').pop() === 'upload'){
 			this.setState({activeItem: 'upload'})
 		}
+		if (this.props.location.pathname.split('/').pop() === 'brightness'){
+			this.setState({activeItem: 'brightness'})
+		}
 	}
 	state = {
 		activeItem: 'guide'
@@ -48,7 +51,7 @@ export class Dashboard extends Component {
 							<Menu vertical fluid>
 								<Menu.Item name='guide' as={Link} active={ activeItem === 'guide' } onClick={ this.handleItemClick } to='/dashboard' >Guide</Menu.Item>
 								<Menu.Item name='upload' as={Link} to='/dashboard/upload' active={ activeItem === 'upload' } onClick={ this.handleItemClick } >Upload</Menu.Item>
-								<Menu.Item name='friends' as='span' active={ activeItem === 'friends' } onClick={ this.handleItemClick } />
+								<Menu.Item name='brightness' as={Link} to='/dashboard/brightness' active={ activeItem === 'brightness' } onClick={ this.handleItemClick } />
 							</Menu>
 						</Grid.Column>
 						<Grid.Column width={ 12 }>

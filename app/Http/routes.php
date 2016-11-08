@@ -39,3 +39,8 @@ Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
 Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
     Route::post('upload', 'UploadController@post');
 });
+
+Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
+    Route::get('video/getvideos', 'VideoController@getVideos');
+    Route::get('video/processbrightness', 'VideoController@processBrightness');
+});

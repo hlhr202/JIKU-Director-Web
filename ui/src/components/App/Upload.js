@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Progress, Card, Button, Dropdown, Input, Grid, Segment } from 'semantic-ui-react'
 
-import DataCollection from '../Collection/DataCollection'
+import DataCollection from '../Data/DataCollection'
 
 import './App.css'
 export class Upload extends Component{
@@ -76,7 +76,7 @@ export class Upload extends Component{
 
 	upload = () => {
 		console.log(this.state.selected)
-		if (!Number.isInteger(this.state.selected.value)||!this.state.selected.selectedIndex){
+		if (!Number.isInteger(this.state.selected.value)||(this.state.selected.selectedIndex!==0 && !this.state.selected.selectedIndex)){
 			alert('You have not selected any collection to upload')
 			return
 		}

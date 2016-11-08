@@ -16,6 +16,7 @@ class CreateCollectionsTable extends Migration
             $table->increments('id');
             $table->integer('creator_id')->unsigned();
             $table->string('name');
+            $table->enum('status',['ready','working']);
             $table->timestamps();
         });
     }
