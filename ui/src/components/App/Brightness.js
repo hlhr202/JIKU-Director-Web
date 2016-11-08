@@ -10,20 +10,21 @@ export class Brightness extends Component{
 		this.pullCollectionList()
 		
 	}
+
+	componentDidUpdate(){
+		
+	}
 	state={
 		videos:[],
 		collections:[],
 		selected:{},
 	}
 
-	pullVideoList = () => {
+	pullVideoList = (value) => {
 		var self = this
-		if (Number.isInteger(this.state.selected.value)){
-			DataVideo.getVideos(this.state.selected.value).then((videos)=>{
-				self.setState({videos:videos})
-			})
-		}
-		console.log(this.state.videos)
+		DataVideo.getVideos(value).then((videos)=>{
+			self.setState({videos:videos})
+		})
 	}
 
 	pullCollectionList = () =>{
@@ -34,9 +35,12 @@ export class Brightness extends Component{
 			})
 
 			this.setState({collections:collections})
-			if (this.state.collections[0])	this.refs.collection.setValue(this.state.collections[this.state.collections.length-1].value)
+			if (this.state.collections[0])	{
+				this.refs.collection.setValue(this.state.collections[this.state.collections.length-1].value)
+				this.pullVideoList(this.state.collections[this.state.collections.length-1].value)
+			}
 			this.setState({selected:this.refs.collection.state})
-			this.pullVideoList();
+			
 		})
 
 		this.refs.collection.handleClose=this.selectionClose
@@ -52,7 +56,7 @@ export class Brightness extends Component{
 
 	selectionClose = (event) => {
 		this.setState({selected:this.refs.collection.state})
-		this.pullVideoList();
+		this.pullVideoList(this.refs.collection.state.value);
 	}
 
 	render(){

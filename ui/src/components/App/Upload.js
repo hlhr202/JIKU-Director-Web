@@ -54,6 +54,7 @@ export class Upload extends Component{
 
 	selectionClose = (event) => {
 		this.setState({selected:this.refs.collection.state})
+		console.log(this.state.selected);
 	}
 
 	createCollection = () => {
@@ -131,7 +132,7 @@ export class Upload extends Component{
 					<Grid.Column>
 						<Input action>
 							<Dropdown placeholder='Collection Name' ref='collection' search selection options={collections} />
-							<Button disabled={Number.isInteger(selected.selectedIndex)?true:false} onClick={this.createCollection} primary>Create</Button>
+							<Button disabled={selected.searchQuery?false:true} onClick={this.createCollection} primary>Create</Button>
 						</Input>
 					</Grid.Column>
 
