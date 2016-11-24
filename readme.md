@@ -20,29 +20,29 @@ $ composer install
 
 ### Build front-end:
 
-	- install gulp before you start
-	```
-	$ npm install --global gulp
-	```
+- install gulp before you start
+```
+$ npm install --global gulp
+```
 
-	- under ui folder
-	```
-	$ cd ui/
-	$ npm install
-	$ npm run build
-	```
+- under ui folder
+```
+$ cd ui/
+$ npm install
+$ npm run build
+```
 
-	- under root folder, shift the front-end sources to the public folder
-	```
-	$ npm install
-	$ gulp
-	```
+- under root folder, shift the front-end sources to the public folder
+```
+$ npm install
+$ gulp
+```
 
-### configure the environment(MySQL, serverport) by editing .env file
+configure the environment(MySQL, serverport) by editing .env file
 
-### To enable Debugbar, edit the config/debugbar.php file
+To enable Debugbar, edit the config/debugbar.php file
 
-### The JsonWebToken is used for authentication
+The JsonWebToken is used for authentication
 
 ### start running
 ```
@@ -50,6 +50,6 @@ $ mysql.server start
 $ php artisan serve
 ```
 
-### front-end developer guide can be found [here](./ui/README.md)
+front-end developer guide can be found [here](./ui/README.md)
 
-### If uploading is not working, try change your php.ini file to enlarge the upload_max_filesize to 256M and memory_limit to 128M
+If uploading is not working, try change your php.ini file to enlarge the upload_max_filesize to 256M and memory_limit to 128M
