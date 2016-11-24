@@ -13,12 +13,12 @@ The project is not completed
 
 ## Developer Guide
 
-1. Install Backend:
+### Install Backend:
 ```
 $ composer install
 ```
 
-2. Build front-end:
+### Build front-end:
 
 	- install gulp before you start
 	```
@@ -38,18 +38,18 @@ $ composer install
 	$ gulp
 	```
 
-3. configure the environment(MySQL, serverport) by editing .env file
+### configure the environment(MySQL, serverport) by editing .env file
 
-4. To enable Debugbar, edit the config/debugbar.php file
+### To enable Debugbar, edit the config/debugbar.php file
 
-5. The JsonWebToken is used for authentication
+### The JsonWebToken is used for authentication
 
-6. start running
+### start running
 ```
 $ mysql.server start
 $ php artisan serve
 ```
 
-7. front-end developer guide can be found [here](./ui/README.md)
+### front-end developer guide can be found [here](./ui/README.md)
 
-8. If uploading is not working, try change your php.ini file to enlarge the upload_max_filesize to 256M and memory_limit to 128M
+### If uploading is not working, try change your php.ini file to enlarge the upload_max_filesize to 256M and memory_limit to 128M
