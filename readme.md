@@ -50,6 +50,6 @@ $ mysql.server start
 $ php artisan serve
 ```
 
-7. front-end developer guide can be found [here](./blob/master/ui/README.md)
+7. front-end developer guide can be found [here](./ui/README.md)
 
 8. If uploading is not working, try change your php.ini file to enlarge the upload_max_filesize to 256M and memory_limit to 128M
