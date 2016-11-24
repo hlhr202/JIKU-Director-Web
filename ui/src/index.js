@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { App, Home } from './components/App/App'
 import { Dashboard, Guide }from './components/App/Dashboard'
 import { Upload } from './components/App/Upload'
-import { Brightness } from './components/App/Brightness'
+import { Process } from './components/App/Process'
 import '../semantic/dist/semantic.min.css'
 
 
@@ -20,7 +20,7 @@ render((
     <Route path="/dashboard" component={ Dashboard }>
       <IndexRoute component={ Guide } />
       <Route path="upload" component={ Upload } />
-      <Route path="brightness" component={ Brightness } />
+      <Route path="process" component={ Process } />
     </Route>
   </Router>
   ), document.getElementById('root'))

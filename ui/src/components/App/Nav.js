@@ -63,7 +63,7 @@ class Nav extends Component{
 			}
 
 		}).catch((error) => {
-			this.refs.loginModal.setFormError(true)
+			this.refs.loginModal.setFormError(error,true)
 			this.refs.loginModal.setLoading(false)
 		})
 	}

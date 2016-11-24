@@ -14,15 +14,10 @@
 use \App\Http\Middleware\JWTEnsureAuth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-
-Route::get('/user', function(){
-    return view('user',['title'=>'User']);
-});
-
+/* all authentication related */
 Route::group(['middleware'=>'cors','prefix' => 'api'], function()
 {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
@@ -31,15 +26,18 @@ Route::group(['middleware'=>'cors','prefix' => 'api'], function()
     Route::get('auth', 'AuthenticateController@auth')->middleware(JWTEnsureAuth::class);
 });
 
+/* collection control */
 Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
     Route::get('collections/getall','CollectionController@getCollections');
     Route::post('collections/create', 'CollectionController@createCollection');
 });
 
+/* upload control */
 Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
     Route::post('upload', 'UploadController@post');
 });
 
+/* video control */
 Route::group(['middleware'=>['cors','jwtensure'],'prefix'=>'api'], function(){
     Route::get('video/getvideos', 'VideoController@getVideos');
     Route::get('video/processbrightness', 'VideoController@processBrightness');

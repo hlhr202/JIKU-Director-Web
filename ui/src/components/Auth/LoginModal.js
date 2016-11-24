@@ -22,10 +22,10 @@ class NotifyModal extends Component {
 		const {notifyOpen} = this.state
 		return (
 			<Modal size='small' open={ notifyOpen } onOpen={ this.openNotify } onClose={ this.closeNotify }>
-     <Modal.Header>Signup</Modal.Header>
+     <Modal.Header>Login Successful</Modal.Header>
      <Modal.Content>
        <Modal.Description>
-         <Header>Default Profile Image</Header>
+         <Header>Welcome Back to JIKU Director</Header>
        </Modal.Description>
      </Modal.Content>
      <Modal.Actions>
@@ -47,14 +47,15 @@ class LoginModal extends Component {
 		password: '',
 		passwordError: false,
 		formError: false,
-		formWarning: false
+		formWarning: false,
+		message:[]
 	}
 
 	openLogin = () => this.setState({
 		loginOpen: true
 	})
 
-	closeSignup = () => {
+	closeLogin = () => {
 		this.setState({
 			email: ''
 		})
@@ -88,6 +89,7 @@ class LoginModal extends Component {
 	handleSubmit = () => {
 		this.setLoading(true)
 		if (!validator.isEmail(this.state.email)) {
+			this.setState({message:['Check your email format.', 'Minimum password length is 8 characters',]})
 			this.setState({
 				formWarning: true
 			})
@@ -100,6 +102,7 @@ class LoginModal extends Component {
 				min: 8,
 				max: 255
 			})) {
+			this.setState({message:['Check your email format.', 'Minimum password length is 8 characters',]})
 			this.setState({
 				formWarning: true
 			})
@@ -141,7 +144,9 @@ class LoginModal extends Component {
 		})
 	}
 
-	setFormError = (toggle) => {
+	setFormError = (error,toggle) => {
+		if (error.status && error.status === 401) this.setState({message:[JSON.parse(error.responseText).error]})
+		if (error.status && error.status === 500) this.setState({message:[error.statusText]})
 		this.setState({
 			formError: toggle
 		})
@@ -154,24 +159,25 @@ class LoginModal extends Component {
 	}
 
 	dismissWarning = () => {
+		
 		this.setState({
 			formWarning: false
 		})
 	}
 	render() {
-		const {loginOpen, emailError, formError, formWarning, passwordError} = this.state
+		const {loginOpen, emailError, formError, formWarning, passwordError, message} = this.state
 		return (
 			<div>
-     <Modal dimmer={ 'blurring' } open={ loginOpen } onClose={ this.closeSignup }>
-       <Modal.Header>Signup</Modal.Header>
+     <Modal dimmer={ 'blurring' } open={ loginOpen } onClose={ this.closeLogin }>
+       <Modal.Header>Login</Modal.Header>
        <Modal.Content>
          <Modal.Description>
            <Header>Welcome to Jiku Director</Header>
          </Modal.Description>
          <Divider/>
          <Form ref='loginform' onSubmit={ this.handleSubmit } error={ formError } warning={ formWarning }>
-           <Message error onDismiss={ this.dismissError } header='Sorry, the registry has been denied' list={ ['That e-mail has been registered. Please change another one.',] } />
-           <Message warning onDismiss={ this.dismissWarning } header='Sorry, please check your information' list={ ['Check your email format.', 'Name is required', 'Minimum password length is 8 characters',] } />
+           <Message error onDismiss={ this.dismissError } header='Sorry, the login has been denied' list={ message } />
+           <Message warning onDismiss={ this.dismissWarning } header='Sorry, please check your information' list={ message } />
            <Form.Field>
              <label>Email <span> (Required)</span></label>
              <Form.Input name='email' onChange={ this.emailChange } error={ emailError } placeholder='Email'></Form.Input>
@@ -183,18 +189,18 @@ class LoginModal extends Component {
          </Form>
        </Modal.Content>
        <Modal.Actions>
-         <Button color='black' onClick={ this.closeSignup }>
+         <Button color='black' onClick={ this.closeLogin }>
            Close
          </Button>
          <Button positive icon labelPosition='right' onClick={ this.handleSubmitClick }>
-           Sign Me In
+           Login
            <Icon name='checkmark' />
          </Button>
        </Modal.Actions>
        <div className={ this.state.loading ? 'ui active dimmer' : 'ui' }>
          <Loader>Loading</Loader>
        </div>
-       <NotifyModal ref='notify' onClose={ this.closeSignup }></NotifyModal>
+       <NotifyModal ref='notify' onClose={ this.closeLogin }></NotifyModal>
      </Modal>
    </div>
 

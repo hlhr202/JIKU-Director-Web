@@ -40,11 +40,13 @@ let login = (data) => {
 			if (response.token) {
 				localStorage.setItem('token', response.token)
 				return resolve(true)
+			} else {
+				return reject(response)
 			}
 		})
 
-		post.fail((jqXHR, textStatus) => {
-			return reject(textStatus)
+		post.fail((jqXHR) => {
+			return reject(jqXHR)
 		})
 	})
 }

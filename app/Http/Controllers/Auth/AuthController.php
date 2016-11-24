@@ -1,5 +1,5 @@
 <?php
-
+/* Deprecated */
 namespace App\Http\Controllers\Auth;
 
 use App\User;

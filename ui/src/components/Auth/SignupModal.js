@@ -25,7 +25,7 @@ class NotifyModal extends Component {
         <Modal.Header>Signup</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Header>Default Profile Image</Header>
+            <Header>Thanks for your registration!</Header>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
@@ -206,9 +206,11 @@ class SignupModal extends Component {
                 <label>Password <span> (Required)</span></label>
                 <Form.Input type='password' onChange={ this.passwordChange } error={ passwordError } placeholder='Password'></Form.Input>
               </Form.Field>
+              {/*
               <Form.Field>
                 <Checkbox label='I agree to the Terms and Conditions' />
               </Form.Field>
+              */}
             </Form>
           </Modal.Content>
           <Modal.Actions>
