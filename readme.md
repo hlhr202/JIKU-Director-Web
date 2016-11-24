@@ -7,7 +7,6 @@ The project is not completed
 - Composer
 - PHP 7.1 (May have compatible problem with PHP5.6)
 - MySQL >= 14.14
-- Apache2
 - Nodejs
 - Other dependency requirements for [Brightness Adjust](https://github.com/hlhr202/BrightnessAdjust)
 
